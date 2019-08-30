@@ -1,0 +1,21 @@
+{
+    "0": [
+        {
+            "course": "database",
+            "faculty": "Dr. Charles Badami",
+            "timing": "08:00am to 09:20am"
+        },
+        {
+            "course": "oops",
+            "faculty": "Dr. Carol Spradling",
+            "timing": "09:30am to 10:50am"
+        }
+    ],
+    "1": [
+        {
+            "course": "web-apps",
+            "faculty": "Dr. Denise Case",
+            "timing": "11:00am to 11:50am"
+        }
+    ]
+}
