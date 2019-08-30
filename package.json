@@ -1,0 +1,26 @@
+{
+  "name": "my-calender-app",
+  "version": "1.0.0",
+  "description": "Alexa skill kit",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anil-bomma/my-calendar.git"
+  },
+  "author": "Anil Bomma",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anil-bomma/my-calendar/issues"
+  },
+  "homepage": "https://github.com/anil-bomma/my-calendar#readme",
+  "dependencies": {
+    "alexa-sdk": "^1.0.25",
+    "lodash": "^4.17.10",
+    "log4js": "^5.1.0",
+    "request": "^2.83.0",
+    "util": "^0.11.0"
+  }
+}
