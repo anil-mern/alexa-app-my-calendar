@@ -1,7 +1,7 @@
 "use strict";
 
 const alexa = require("alexa-sdk");
-let log4js = require('log4js'),
+let log4js = require('log4js');
 
 
 const config = require("./config.js");

@@ -4,7 +4,7 @@ let log4js = require('log4js'),
 let config = require('../config.js');
 let publicHoildays = require('./publicHoildays.json');
 let weeksFormat = require('./weeks.json');
-let coursesList = require('./faculry.json');
+let coursesList = require('./faculty.json');
 
 let logger = log4js.getLogger();
 logger.level = 'debug';
@@ -34,68 +34,35 @@ restCall = (self, sessionAttributes, options, callback) => {
 
 var mainHandler = {
 
+    // #1
     'LaunchRequest': function () {
         this.response._responseObject.response.shouldEndSession = false;
         this.response.cardRenderer(config.welcomeNote);
         this.response.speak(config.welcomeNote);
         this.response.listen(config.helpMessage);
         this.emit(':responseReady');
-        logger.info("LaunchRequest has executed.")
-    },
-
-    // #1
-    'BuildCodeIntent': function () {
-        var responseText;
-        var sessionAttributes = this.response._responseObject.sessionAttributes;
-        this.response._responseObject.response.shouldEndSession = false;
-        var options = {
-            method: 'GET',
-            url: util.format("%s/api/preferences/user/preference/execute/bot", config.baseUrl),
-            qs: { context: 'Voice-Build' }
-        };
-        restCall(this, sessionAttributes, options, (error, buildDetails) => {
-            if (error) {
-                responseText = "You have no voice build configure to execute";
-                this.response.speak(responseText);
-                this.response.listen(config.nextReprompt);
-                this.emit(':responseReady');
-                logger.info(" BuildCodeIntent function has error", error);
-            } else {
-                responseText = "Your code has build, Successfully";
-                this.response.speak(responseText);
-                this.response.listen(config.nextReprompt);
-                this.emit(':responseReady');
-                logger.info(" BuildCodeIntent function has executed successfully");
-            }
-        });
+        logger.info("LaunchRequest has executed.");
     },
 
     // #2
-    'Schedules': function () {
+    'MyClassesInfo': function () {
         
         let responseText = "";
         let eventRequest = this.event.request;
         this.response._responseObject.response.shouldEndSession = false;
 
-        let filledSlots = delegateSlotCollection(this, eventRequest);
-        
-        // if (filledSlots && (filledSlots.confirmationStatus === 'NONE' || filledSlots.confirmationStatus === 'CONFIRMED')
-        //     && eventRequest.dialogState == 'COMPLETED') {
+        // let filledSlots = delegateSlotCollection(this, eventRequest);
 
-        if (eventRequest.dialogState == 'COMPLETED' && eventRequest.intent.slots.customDate.value) {
+        if (eventRequest.dialogState && eventRequest.dialogState == 'COMPLETED' && eventRequest.intent.slots.customDate.value) {
 
-            let todayDate = new Date().toLocaleString();
-
-            console.log('-----eventRequest----', eventRequest);
+            // code need to be added
 
         } else {
             
             let date = new Date();
             let todayDate = date.toLocaleDateString();
-
             let isHolidayAvailable = publicHoildays[todayDate];
             let weekCode = date.getDay();
-
 
             if (isHolidayAvailable) {
 
@@ -121,23 +88,21 @@ var mainHandler = {
                 logger.info(" Schedules has executed successfully");
 
             } else {
-
-                coursesList[weekCode%2].map(function(details){
-                    responseText.concat(
-                        details.course + " by "+ details.faculty + " between "+ details.timing+ ", "
-                    )
+                coursesList[weekCode%2].map(function(details) {
+                    responseText += util.format(" %s by %s from %s,", details.course, details.faculty, details.timing);
                 });
 
                 responseText = util.format(
                     "You have %s sessions, %s", 
-                    coursesList[0].length(),
+                    coursesList[weekCode%2].length,
                     responseText
                 );
 
+                this.response._responseObject.response.shouldEndSession = false;
+                this.response.cardRenderer(responseText);
                 this.response.speak(responseText);
                 this.emit(':responseReady');
                 logger.info(" Schedules has executed successfully");
-
             }
         }
     },
