@@ -8,7 +8,7 @@ const config = require("./config.js");
 const defaultHandler = require("./handlers/defaultHandler.js");
 const mainHandler = require("./handlers/mainHandler.js");
 
-let logger = log4js.getLogger();
+let logger = log4js.getLogger('app');
 logger.level = 'debug';
 
 
@@ -18,7 +18,6 @@ module.exports.handler = (event, context) => {
 
   alexaHandler.APP_ID = config.appId;
   logger.info(" appId has register successfully, ", alexaHandler.APP_ID);
-  logger.info(" appId has register successfully, ", alexaHandler.appId);
 
   alexaHandler.registerHandlers(defaultHandler, mainHandler);
   logger.info(" handlers are register successfully.");

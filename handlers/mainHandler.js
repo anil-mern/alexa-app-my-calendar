@@ -6,29 +6,21 @@ let publicHoildays = require('./publicHoildays.json');
 let weeksFormat = require('./weeks.json');
 let coursesList = require('./faculty.json');
 
-let logger = log4js.getLogger();
+let logger = log4js.getLogger('my-calendar.mainHandler');
 logger.level = 'debug';
 
 
 delegateSlotCollection = (self, request) => {
     logger.info("delegateSlotCollection function has executed");
 
-    if (request.dialogState === 'STARTED') {
+    if (request.dialogState && request.dialogState === 'STARTED') {
         var updatedIntent = request.intent;
         self.emit(':delegate', updatedIntent);
-    } else if (request.dialogState !== 'COMPLETED') {
+    } else if (request.dialogState && request.dialogState !== 'COMPLETED') {
         self.emit(':delegate');
     } else {
         return request.intent
     }
-};
-
-restCall = (self, sessionAttributes, options, callback) => {
-    let speechText = "please login to continue";
-    self.response.cardRenderer(speechText);
-    self.response.speak(speechText);
-    self.emit(':responseReady');
-    logger.error(" token needed to access, need to login with color and code.");
 };
 
 
@@ -51,15 +43,13 @@ var mainHandler = {
         let eventRequest = this.event.request;
         this.response._responseObject.response.shouldEndSession = false;
 
-        // let filledSlots = delegateSlotCollection(this, eventRequest);
+        let filledSlots = delegateSlotCollection(this, eventRequest);
 
-        if (eventRequest.dialogState && eventRequest.dialogState == 'COMPLETED' && eventRequest.intent.slots.customDate.value) {
-
-            // code need to be added
-
-        } else {
+        if (filledSlots && (filledSlots.confirmationStatus === 'NONE' || 
+        filledSlots.confirmationStatus === 'CONFIRMED') && eventRequest.intent.slots && 
+        eventRequest.intent.slots.customDate.value) {
             
-            let date = new Date();
+            let date = new Date(eventRequest.intent.slots.customDate.value);
             let todayDate = date.toLocaleDateString();
             let isHolidayAvailable = publicHoildays[todayDate];
             let weekCode = date.getDay();
@@ -67,7 +57,7 @@ var mainHandler = {
             if (isHolidayAvailable) {
 
                 responseText = util.format(
-                    "It seems like you don't have school today i.e; on %s, because it's %s!", 
+                    "It seems like you don't have school on %s, because it's %s!", 
                     todayDate, 
                     isHolidayAvailable
                 );
@@ -93,7 +83,57 @@ var mainHandler = {
                 });
 
                 responseText = util.format(
-                    "You have %s sessions, %s", 
+                    "On %s, you have %s sessions, %s",
+                    todayDate,
+                    coursesList[weekCode%2].length,
+                    responseText
+                );
+
+                this.response._responseObject.response.shouldEndSession = false;
+                this.response.cardRenderer(responseText);
+                this.response.speak(responseText);
+                this.emit(':responseReady');
+                logger.info(" Schedules has executed successfully");
+            }
+            
+        } else {
+
+            let date = new Date();
+            let todayDate = date.toLocaleDateString();
+            let isHolidayAvailable = publicHoildays[todayDate];
+            let weekCode = date.getDay();
+
+            if (isHolidayAvailable) {
+
+                responseText = util.format(
+                    "It seems like you don't have school on %s, because it's %s!", 
+                    todayDate, 
+                    isHolidayAvailable
+                );
+
+                this.response.speak(responseText);
+                this.emit(':responseReady');
+                logger.info(" Schedules has executed successfully, %s", responseText);
+
+            } else if (weekCode == "0" || weekCode == "6") {
+                
+                responseText = util.format(
+                    "It's %s, there are no classes, school is off...", 
+                    weeksFormat[weekCode]
+                );
+
+                this.response.speak(responseText);
+                this.emit(':responseReady');
+                logger.info(" Schedules has executed successfully");
+
+            } else {
+                coursesList[weekCode%2].map(function(details) {
+                    responseText += util.format(" %s by %s from %s,", details.course, details.faculty, details.timing);
+                });
+
+                responseText = util.format(
+                    "Today that is on %s, you have %s sessions, %s", 
+                    todayDate,
                     coursesList[weekCode%2].length,
                     responseText
                 );
