@@ -8,21 +8,21 @@ a working day or holiday? If its holiday it will specify the reason for holiday.
 
 ## How to use (Just speak)
 
-> ___Alexa, open my calendar___
+> _Alexa, open my calendar_
 >
->   ___Hello User, hope you are doing well___
+> ___Hello User, hope you are doing well___
 
-> ___My classes info___
+> _My classes info_
 >
->   ___You have so and so class by faculty between 11:00am to 11:50am___
+> ___You have so and so class by faculty between 11:00am to 11:50am___
 
-> ___What classes I have on 2nd Sep 2019___
+> _What classes I have on 2nd Sep 2019_
 >
->   ___It's look like school will remain close because it's labours day___
+> ___It's look like school will remain close because it's labours day___
 
-> ___what are Student rec timings___
+> _what are Student rec timings_
 >
->   ___Student Rec will be opened between 08:00am to 9:00pm___
+> ___Student Rec will be opened between 08:00am to 9:00pm___
 
 ## Recent Updates
 
