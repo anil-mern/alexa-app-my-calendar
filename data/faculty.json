@@ -3,19 +3,22 @@
         {
             "course": "database",
             "faculty": "Dr. Charles Badami",
-            "timing": "08:00am to 09:20am"
+            "timing": "08:00am to 09:20am",
+            "location": "Colden Hall ch1200"
         },
         {
             "course": "oops",
             "faculty": "Dr. Carol Spradling",
-            "timing": "09:30am to 10:50am"
+            "timing": "09:30am to 10:50am",
+            "location": "Valk center vlk117"
         }
     ],
     "1": [
         {
             "course": "web-apps",
             "faculty": "Dr. Denise Case",
-            "timing": "11:00am to 11:50am"
+            "timing": "11:00am to 11:50am",
+            "location": "Colden Hall ch1200"
         }
     ]
 }

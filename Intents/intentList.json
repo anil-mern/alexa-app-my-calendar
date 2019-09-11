@@ -1,0 +1,65 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "my calendar",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": [
+                        "Ohh",
+                        "Ok",
+                        "Thank you"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "MyClassesInfo",
+                    "slots": [
+                        {
+                            "name": "customDate",
+                            "type": "AMAZON.DATE"
+                        }
+                    ],
+                    "samples": [
+                        "class timings",
+                        "tell about my classes",
+                        "classes info",
+                        "class schedule ",
+                        "what classes do I have on {customDate}",
+                        "time table info ",
+                        "my school schedules",
+                        "my classes info",
+                        "my classes timing please",
+                        "list all my classes",
+                        "what classes do I have today ",
+                        "my schedules"
+                    ]
+                },
+                {
+                    "name": "StudentRec",
+                    "slots": [],
+                    "samples": [
+                        "student rec timings",
+                        "what are student rec timings"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}
