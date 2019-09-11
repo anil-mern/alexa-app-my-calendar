@@ -3,13 +3,36 @@
 
 This Alexa sample skill is a template for a basic my-calendar skill.
 
-Alexa will speak out the schedule of my grad classes based on the current day when the skill is invoked. It will check that weather it's
-a working day or holiday? If its holiday it will specify the reason for holiday. 
+Alexa will speak out the schedule of my grad classes based on the current day or when the specific date is provided when the skill is invoked. It will check that weather it's
+a working day or holiday? If its holiday it will specify the reason for holiday.
+
+## How to use (Just speak)
+
+> ___Alexa, open my calendar___
+>
+>   ___Hello User, hope you are doing well___
+
+> ___My classes info___
+>
+>   ___You have so and so class by faculty between 11:00am to 11:50am___
+
+> ___What classes I have on 2nd Sep 2019___
+>
+>   ___It's look like school will remain close because it's labours day___
+
+> ___what are Student rec timings___
+>
+>   ___Student Rec will be opened between 08:00am to 9:00pm___
+
+## Recent Updates
+
+* Used advance concepts such as slots to get the dynamic inputs from the end-user
+* Added new intenet for the student rec timings
 
 ## TODO
 
 * Enhance the existing skill
-* Need to add the gym and student rec timings
+* Need to add the gym timings
 
 ## Skill Architecture
 Each skill consists of two basic parts, a front end and a back end.
